@@ -1,0 +1,22 @@
+div {
+  float: left;
+  margin-right: 2px;
+  vertical-align: bottom;
+}
+
+input, label {
+  display: block;
+  height: 1.1em;
+}
+
+br {clear: both;}
+h1 {font-size: 18px;}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+#buttonParent {
+  margin-top: 1.1em;
+}
