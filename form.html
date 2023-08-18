@@ -5,30 +5,37 @@
     <title>Student Record Management</title>
     <link rel="stylesheet" href="css/main.css" />
     <script src="js/main.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
 </head>
 <body>
 
 <h1>Student Record Management</h1>
 
 <form id="inputs">
-<div>
-  <label for="fullName">Full Name</label>
-  <input type="text" name="fullName" id="fullName" />
-</div>
+  <div>
+    <label for="fullName">Full Name</label>
+    <input type="text" name="fullName" id="fullName" />
+  </div>
 
-<div>
-  <label for="major">Major</label>
-  <input type="text" name="major" id="major" />
-</div>
+  <div>
+    <label for="major">Major</label>
+    <input type="text" name="major" id="major" />
+  </div>
 
-<div>
-  <label for="startYear">Start Year</label>
-  <input type="text" name="startYear" id="startYear" />
-</div>
+  <div>
+    <label for="startYear">Start Year</label>
+    <input type="text" name="startYear" id="startYear" />
+  </div>
 
-<div id="buttonParent">
-<input type="button" value="Add Record" id="addRec" />
-</div>
+  <div id="buttonParent">
+  <input type="button" value="Add Record" id="addRec" />
+  </div>
+  <br/>
+  <div id="dvLoad">
+    <input type="button" value="Load" id="btnLoad" title="Click to Load Records">    
+  </div>
+  <div id="dvData1" title="Data from Entities File"></div>
 </form>
 
 <br />
@@ -37,7 +44,10 @@
 
 <ul id="enteredRecords">
 </ul>
-
+<h1>Loaded Records:</h1>
+<ul id="LoadedRecords">
+</ul>
 
 </body>
+
 </html>

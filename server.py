@@ -13,6 +13,9 @@ def index():
 
 
 # Routes for static resources
+@app.route('/favicon.ico') 
+def favicon(): 
+    return send_from_directory('.', 'favicon.ico')
 
 @app.route('/js/<path:path>')
 def get_js(path):
@@ -36,7 +39,7 @@ def get_users():
         d = json.load(f)
         return(d)
 
-@app.route('/user/', methods = ['GET'])
+@app.route('/user/', methods = ['GET','POST'])
 def addUser():
     newId = uuid.uuid4().hex[:6]
 
@@ -56,9 +59,10 @@ def addUser():
         # Add a new record to the JSON
         data["records"].append(newUser)
 
-    write_to_file(data, file_name)
+    write_to_file(file_name, data)
+    return make_response('', 200)
 
-@app.route('/user/<user_id>', methods = ['GET'])
+@app.route('/user/<user_id>', methods = ['GET','DELETE'])
 def delete_user(user_id):
     data = ''
     file_name = 'data/entries.json'
@@ -78,6 +82,7 @@ def write_to_file(file_path, jsonString):
     with open(file_path, 'w') as f:
         # Write the modified list to file
         json.dump(jsonString, f, sort_keys=True, indent=4)
+        
 
 if __name__ == '__main__':
   # If you mess up your data, re-run the container and it will be restored
