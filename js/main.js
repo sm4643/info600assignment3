@@ -1,10 +1,14 @@
-$(function(){
-      
-  $.guid= 0;
+$(function(){      
 
   $("#btnLoad").click(function(){
     LoadData();
   });
+
+  $("#dvAlert").dialog({
+    autoOpen: false,
+    height: 300,
+    width: 300,
+    resizable: false});  
 
 });
 
@@ -78,9 +82,9 @@ function AddData(fName, ID, Mjr, SYear){
   const person = {fullName:fName , id:ID, major:Mjr, startYear:SYear};
   //alert(JSON.stringify(person));
   //alert($("#inputs").serialize());
-  $.ajax({type: "POST",url: " http://localhost:8081/user", crossDomain:true, data:$("#inputs").serialize(), success: function (response) {alert('user ' + person.fullName + ' added');LoadData(); },
+  $.ajax({type: "POST",url: " http://localhost:8081/user", crossDomain:true, data:$("#inputs").serialize(), success: function (response) {MyAlert(person.fullName + ' added','add status');LoadData(); },
     error: function (xhr, status) {
-        alert("error");
+      MyAlert("error during add","add status");
     }
   });
 
@@ -102,9 +106,10 @@ function GetUniqueId(){
 
 function DeleteUser(id){
   //alert('del mthd:' + id);
-  $.ajax({type: "DELETE",url: " http://localhost:8081/user/"+id, crossDomain:true, success: function (response) {alert('user ' + id + ' deleted');LoadData(); },
+  $.ajax({type: "DELETE",url: " http://localhost:8081/user/"+id, crossDomain:true, success: function (response) {MyAlert('user ' + id + ' deleted','delete status');LoadData(); },
     error: function (xhr, status) {
-        alert("error");
+        
+        MyAlert("error during Delete","delete status");
     }
   });
 }
@@ -120,24 +125,35 @@ function LoadData(){
 
           for (var x = 0; x < data.length; x++) {
             var time = GetTime();
-            content = "<li>";
-            content += time + "-" + data[x].id + " - " + data[x].fullName + ", ";
-            content += data[x].major + ", " + data[x].startYear;                
-            content += "<input type='button' class='delbtn' value='delete' id='" + data[x].id + "' title='click to delete'/></li>";
+            content = "<tr><td>";
+            content += time + "</td><td>" + data[x].id + "</td><td>" + data[x].fullName + "</td><td>";
+            content += data[x].major + "</td><td>" + data[x].startYear;                
+            content += "</td><td><input type='button' class='delbtn mybtn' value='delete' id='" + data[x].id + "' title='click to delete'/></td></tr>";
            
             newList += content;
           }
           
           $("#LoadedRecords").html(newList);
-
+          
           $(".delbtn").click(function(){
             DeleteUser($(this).attr("id"));
           });
-
+          
         },
         error: function (xhr, status) {
-            alert("error");
+          MyAlert("error during load","Load status");
         }
     });
+    
+}
 
+function MyAlert(text,header){
+  
+  $("#dvAlertMessage").html(text);    
+  $("#dvAlert").dialog({title: header,
+                        buttons:{
+                            Ok: function() 
+                              {$( this ).dialog( "close" );}
+                            }
+                          }).dialog('open');  
 }

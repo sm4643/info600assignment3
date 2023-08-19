@@ -1,4 +1,4 @@
-div {
+#inputs div {
   float: left;
   margin-right: 2px;
   vertical-align: bottom;
@@ -19,4 +19,17 @@ ul {
 
 #buttonParent {
   margin-top: 1.1em;
+}
+
+.mybtn, .myinpt{
+  height:2em !important;
+  margin-left:4px;
+  margin-bottom:2px;
+}
+
+.mytbl{
+  width:100%; border:1px solid;
+}
+.mytblhd{
+  color:red; font-weight:bold;
 }
